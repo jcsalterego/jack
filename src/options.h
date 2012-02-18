@@ -3,12 +3,14 @@
 #define __OPTIONS_H__
 
 #include <stdlib.h>
+#include <string.h>
 #include <strings.h>
 #include <unistd.h>
 
 typedef struct {
   int version;
   int error;
+  char *needle;
 } options;
 
 options *options_new (void);

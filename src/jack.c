@@ -13,12 +13,17 @@ usage (void)
 int
 main (int argc, char **argv)
 {
-  options *c = options_from_args(argc, argv);
-  if (c->error) {
+  options *opts = options_from_args(argc, argv);
+  if (opts->error) {
     usage();
     return EXIT_FAILURE;
-  } else if (c->version) {
+  } else if (opts->version) {
     printf("jack version " APP_VERSION_STR "\n");
   }
+
+  if (opts->needle) {
+    // do your search here
+  }
+
   return EXIT_SUCCESS;
 }
