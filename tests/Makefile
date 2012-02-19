@@ -56,4 +56,4 @@ options_unittest: options.o options_unittest.o gtest_main.a $(OBJS)
 %.o: ../src/%.c
 	$(CXX) -c $(CPPFLAGS_EXTRA) $+ -o $@
 clean:
-	rm -rf *_unittest *~ \#*\# *.o gmon.out *.dSYM/
+	rm -rf *_unittest *~ \#*\# *.o *.a gmon.out *.dSYM/
