@@ -34,7 +34,7 @@ options_from_args (int argc, char **argv)
   options *self = options_new();
 
   int ch;
-  while ((ch = getopt(argc, argv, "v")) != -1) {
+  while ((ch = getopt(argc, argv, "dV")) != -1) {
     switch (ch) {
     case 'd':
       self->debug = 1;
