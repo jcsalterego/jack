@@ -7,10 +7,14 @@
 #include <strings.h>
 #include <unistd.h>
 
+#define MAX_HAYSTACKS 10
+
 typedef struct {
   int version;
   int error;
   char *needle;
+  char *haystacks[MAX_HAYSTACKS];
+  int num_haystacks;
 } options;
 
 options *options_new (void);

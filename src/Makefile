@@ -20,11 +20,12 @@ CPPFLAGS_EXTRA=\
 	-Wwrite-strings
 
 LDFLAGS=
+ALLOBJS=engine.o options.o search.o
 
 all: jack
 EXES=jack
 
-jack: jack.o globals.h options.o
+jack: jack.o globals.h $(ALLOBJS)
 	$(CC) $(LDFLAGS) $(CPPFLAGS_EXTRA) $+ -o jack
 %.o: %.c
 	$(CC) -c $(CPPFLAGS_EXTRA) $+ -o $@

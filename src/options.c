@@ -6,15 +6,22 @@ options_new (void)
 {
   options *self = malloc(sizeof(options));
   bzero(self, sizeof(options));
+  self->num_haystacks = 0;
   return self;
 }
 
 void
 options_destroy (options *self)
 {
+  int i;
   if (self) {
     if (self->needle) {
       free(self->needle);
+    }
+    for (i = 0; i < MAX_HAYSTACKS; i++) {
+      if (self->haystacks[i]) {
+        free(self->haystacks[i]);
+      }
     }
     free(self);
   }
@@ -23,6 +30,7 @@ options_destroy (options *self)
 options *
 options_from_args (int argc, char **argv)
 {
+  int i;
   options *self = options_new();
 
   int ch;
@@ -48,6 +56,15 @@ options_from_args (int argc, char **argv)
 
     --argc;
     ++argv;
+  }
+
+  for (i = 0; i < MAX_HAYSTACKS && i < argc; i++) {
+    // populate haystacks
+    size_t slen = strlen(argv[i]);
+    self->haystacks[i] = (char *)malloc(sizeof(char)*(1+slen));
+    memcpy(self->haystacks[i], argv[i], sizeof(char)*(0+slen));
+    self->haystacks[i][slen] = '\0';
+    self->num_haystacks++;
   }
 
   return self;
