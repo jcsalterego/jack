@@ -13,7 +13,7 @@ Given an example newline-delimited JSON file:
 
 Search by key (note the ending colon):
 
-    $ jack created_key: events.json
+    $ jack created_at: events.json
     Sat Jan 07 03:18:00 +0000 2012
     Sat Jan 07 03:20:00 +0000 2012
     Sat Jan 07 03:22:00 +0000 2012
