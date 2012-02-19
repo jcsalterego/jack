@@ -4,7 +4,7 @@
 options *
 options_new (void)
 {
-  options *self = malloc(sizeof(options));
+  options *self = (options *)malloc(sizeof(options));
   bzero(self, sizeof(options));
   self->num_haystacks = 0;
   return self;

@@ -4,7 +4,7 @@
 engine *
 engine_new (void)
 {
-  engine *self = malloc(sizeof(engine));
+  engine *self = (engine *)malloc(sizeof(engine));
   bzero(self, sizeof(engine));
   return self;
 }

@@ -4,7 +4,7 @@
 search *
 search_new (void)
 {
-  search *self = malloc(sizeof(search));
+  search *self = (search *)malloc(sizeof(search));
   bzero(self, sizeof(search));
   return self;
 }
