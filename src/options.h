@@ -12,6 +12,7 @@
 typedef struct {
   int version;
   int error;
+  int debug;
   char *needle;
   char *haystacks[MAX_HAYSTACKS];
   int num_haystacks;

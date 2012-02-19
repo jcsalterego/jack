@@ -36,6 +36,9 @@ options_from_args (int argc, char **argv)
   int ch;
   while ((ch = getopt(argc, argv, "v")) != -1) {
     switch (ch) {
+    case 'd':
+      self->debug = 1;
+      break;
     case 'v':
       self->version = 1;
       break;

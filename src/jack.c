@@ -5,8 +5,11 @@ void
 usage (void)
 {
   printf(
-    "Usage: jack [OPTION]... PATTERN [FILE] ...\n\n"
-    "Search for PATTERN in JSON files.\n"
+    "Usage: jack [OPTION]... PATTERN [FILE] ...\n"
+    "Search for PATTERN in JSON files.\n\n"
+    "General options:\n"
+    "  -d\tdebug mode\n"
+    "  -v\tprint version information and exit\n"
   );
 }
 
