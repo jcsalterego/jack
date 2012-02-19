@@ -39,7 +39,7 @@ options_from_args (int argc, char **argv)
     case 'd':
       self->debug = 1;
       break;
-    case 'v':
+    case 'V':
       self->version = 1;
       break;
     default:

@@ -9,7 +9,7 @@ usage (void)
     "Search for PATTERN in JSON files.\n\n"
     "General options:\n"
     "  -d\tdebug mode\n"
-    "  -v\tprint version information and exit\n"
+    "  -V\tprint version information and exit\n"
   );
 }
 
