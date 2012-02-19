@@ -19,11 +19,10 @@ main (int argc, char **argv)
     return EXIT_FAILURE;
   } else if (opts->version) {
     printf("jack version " APP_VERSION_STR "\n");
+  } else {
+    if (opts->needle) {
+      // do your search here
+    }
   }
-
-  if (opts->needle) {
-    // do your search here
-  }
-
   return EXIT_SUCCESS;
 }
