@@ -81,6 +81,15 @@ engine_extract_value_str (engine *self, char *p, char *ple)
 }
 
 void
+engine_extract_value_null (engine *self, char *p, char *ple)
+{
+  // find ending
+  if (p + 4 < ple && p[1] == 'u' && p[2] == 'l' && p[3] == 'l') {
+    printv(p, p + 4);
+  }
+}
+
+void
 engine_extract_value_num (engine *self, char *p, char *ple)
 {
   // find ending
@@ -109,6 +118,9 @@ engine_extract_value (engine *self, char *pneedle, char *ple)
   case '0': case '1': case '2': case '3': case '4': // fall-through
   case '5': case '6': case '7': case '8': case '9':
     engine_extract_value_num(self, pneedle, ple);
+    break;
+  case 'n':
+    engine_extract_value_null(self, pneedle, ple);
     break;
   default:
     break;
