@@ -38,6 +38,13 @@ TEST_F(OptionsTestSuite, options_from_args_V_is_version) {
   options_destroy(opts);
 }
 
+TEST_F(OptionsTestSuite, options_from_args_question_mark_is_help) {
+  char *argv[] = {(char *)"jack", (char *)"-?"};
+  options *opts = options_from_args(2, argv);
+  ASSERT_EQ(1, opts->help);
+  options_destroy(opts);
+}
+
 TEST_F(OptionsTestSuite, options_from_args_unknown_flag_causes_errors) {
   char *argv[] = {(char *)"jack", (char *)"-@"};
   options *opts = options_from_args(2, argv);

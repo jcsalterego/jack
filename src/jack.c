@@ -8,6 +8,7 @@ usage (void)
     "Usage: jack [OPTION]... PATTERN [FILE] ...\n"
     "Search for PATTERN in JSON files.\n\n"
     "General options:\n"
+    "  -?\tthis help\n"
     "  -d\tdebug mode\n"
     "  -j\toutput raw json (quoted strings)\n"
     "  -V\tprint version information and exit\n"
@@ -26,7 +27,7 @@ mini_usage (void)
 int
 main (int argc, char **argv)
 {
-  int i, rv = 0;
+  int i, success = 0;
   search *s = NULL;
   options *opts = options_from_args(argc, argv);
   if (opts->error) {
@@ -34,6 +35,9 @@ main (int argc, char **argv)
     return EXIT_FAILURE;
   } else if (opts->version) {
     printf("jack version " APP_VERSION_STR "\n");
+  } else if (opts->help) {
+    usage();
+    success = 1;
   } else if (opts->needle) {
     s = search_new_from_expr(opts->needle);
     if (opts->debug) {
@@ -46,17 +50,17 @@ main (int argc, char **argv)
       engine *e = engine_new2(s, opts->haystacks[i]);
       e->json = opts->json;
       e->debug = opts->debug;
-      rv = engine_run(e);
+      success = engine_run(e);
     }
     search_destroy(s);
   }
   options_destroy(opts);
-  if (rv != 1) {
+  if (!success) {
     if (!opts->needle) {
       mini_usage();
     } else {
       // some other non-success code
-      fprintf(stderr, "*** warning: non-success code %d\n", rv);
+      fprintf(stderr, "*** warning: non-success code %d\n", success);
     }
     return EXIT_FAILURE;
   } else {

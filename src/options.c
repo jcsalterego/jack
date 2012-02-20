@@ -35,7 +35,7 @@ options_from_args (int argc, char **argv)
 
   int ch;
   optreset = optind = 1; // reset getopt
-  while ((ch = getopt(argc, argv, "djV")) != -1) {
+  while ((ch = getopt(argc, argv, "?djV")) != -1) {
     switch (ch) {
     case 'd':
       self->debug = 1;
@@ -46,8 +46,13 @@ options_from_args (int argc, char **argv)
     case 'V':
       self->version = 1;
       break;
+    case '?': // fall-through
     default:
-      self->error = 1;
+      if (optopt == '?') {
+        self->help = 1;
+      } else {
+        self->error = 1;
+      }
       break;
     }
   }

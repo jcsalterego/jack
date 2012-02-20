@@ -13,6 +13,7 @@ typedef struct options {
   int version;
   int error;
   int debug;
+  int help;
   int json;
   char *needle;
   char *haystacks[MAX_HAYSTACKS];
