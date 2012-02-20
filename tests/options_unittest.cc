@@ -44,3 +44,24 @@ TEST_F(OptionsTestSuite, options_from_args_unknown_flag_causes_errors) {
   ASSERT_EQ(1, opts->error);
   options_destroy(opts);
 }
+
+TEST_F(OptionsTestSuite, options_from_args_needle_and_haystacks) {
+  char *argv[] = {
+    (char *)"jack", (char *)"needle",
+    (char *)"haystack1", (char *)"haystack2", (char *)"haystack3"
+  };
+  options *opts = options_from_args(5, argv);
+  ASSERT_STREQ(argv[1], opts->needle);
+  ASSERT_STREQ(argv[2], opts->haystacks[0]);
+  ASSERT_STREQ(argv[3], opts->haystacks[1]);
+  ASSERT_STREQ(argv[4], opts->haystacks[2]);
+  ASSERT_EQ(NULL, opts->haystacks[3]);
+  options_destroy(opts);
+}
+
+TEST_F(OptionsTestSuite, options_from_args_needle) {
+  char *argv[] = {(char *)"jack", (char *)"needle"};
+  options *opts = options_from_args(2, argv);
+  ASSERT_STREQ(argv[1], opts->needle);
+  options_destroy(opts);
+}
