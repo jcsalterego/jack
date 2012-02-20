@@ -25,6 +25,7 @@ CPPFLAGS_EXTRA+=\
 	-Wundef \
 	-Wwrite-strings
 CXXFLAGS=$(CPPFLAGS)
+LIBS=-lpthread
 
 GTEST_DIR=./googletest
 CPPFLAGS += -I$(GTEST_DIR)/include
