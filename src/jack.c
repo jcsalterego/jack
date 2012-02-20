@@ -36,11 +36,16 @@ main (int argc, char **argv)
     printf("jack version " APP_VERSION_STR "\n");
   } else if (opts->needle) {
     s = search_new_from_expr(opts->needle);
-    fprintf(stderr, "*** searching for '%s'\n", s->expr);
+    if (opts->debug) {
+      fprintf(stderr, "*** searching for '%s'\n", s->expr);
+    }
     for (i = 0; i < opts->num_haystacks; i++) {
-      fprintf(stderr, "*** target file = %s\n", opts->haystacks[i]);
+      if (opts->debug) {
+        fprintf(stderr, "*** target file = %s\n", opts->haystacks[i]);
+      }
       engine *e = engine_new2(s, opts->haystacks[i]);
       e->json = opts->json;
+      e->debug = opts->debug;
       rv = engine_run(e);
     }
     search_destroy(s);

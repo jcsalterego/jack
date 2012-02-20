@@ -146,17 +146,21 @@ engine_extract_value (engine *self, char *pneedle, char *ple)
 int
 engine_process_line (engine *self, char *pl, char *ple)
 {
-  char tmp[64];
-  // silly debug info
-  size_t slen = ple - pl;
-  if (slen > 50) {
-    slen = 50;
-  }
-  memcpy(tmp, pl, sizeof(char) * slen);
-  tmp[slen] = '\0';
-  fprintf(stderr, "*** line: '%s[...]'\n", tmp);
-
   char needle[2048];
+
+  if (self->debug) {
+    char tmp[64];
+    // silly debug info
+    size_t slen = ple - pl;
+    if (slen > 50) {
+      slen = 50;
+    }
+    memcpy(tmp, pl, sizeof(char) * slen);
+    tmp[slen] = '\0';
+    fprintf(stderr, "*** line: '%s[...]'\n", tmp);
+  }
+
+  // compose search key
   size_t nlen = strlen(self->search->key);
   needle[0] = '"';
   memcpy(&needle[1], self->search->key, sizeof(char)*nlen);
@@ -183,9 +187,11 @@ int
 engine_process_file (engine *self, char *f_ptr, off_t f_len)
 {
   if (self->search->key != NULL) {
-    fprintf(stderr,
-            "*** searching for key '%s' in '%s' of size %d\n",
-            self->search->key, self->filename, (int)f_len);
+    if (self->debug) {
+      fprintf(stderr,
+              "*** searching for key '%s' in '%s' of size %d\n",
+              self->search->key, self->filename, (int)f_len);
+    }
 
     // search for key in f_len
     char *f = f_ptr;
