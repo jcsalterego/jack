@@ -18,6 +18,13 @@ Search by key (note the ending colon):
     Sat Jan 07 03:20:00 +0000 2012
     Sat Jan 07 03:22:00 +0000 2012
 
+Output raw JSON (quoted strings):
+
+    $ jack -j created_at: events.json
+    "Sat Jan 07 03:18:00 +0000 2012"
+    "Sat Jan 07 03:20:00 +0000 2012"
+    "Sat Jan 07 03:22:00 +0000 2012"
+
 ## Thanks
 
 * [ack](http://betterthangrep.com/) - for three-quarters of the name

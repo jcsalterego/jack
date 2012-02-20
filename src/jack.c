@@ -9,6 +9,7 @@ usage (void)
     "Search for PATTERN in JSON files.\n\n"
     "General options:\n"
     "  -d\tdebug mode\n"
+    "  -j\toutput raw json (quoted strings)\n"
     "  -V\tprint version information and exit\n"
   );
 }
@@ -30,6 +31,7 @@ main (int argc, char **argv)
     for (i = 0; i < opts->num_haystacks; i++) {
       fprintf(stderr, "*** target file = %s\n", opts->haystacks[i]);
       engine *e = engine_new2(s, opts->haystacks[i]);
+      e->json = opts->json;
       rv = engine_run(e);
     }
     search_destroy(s);

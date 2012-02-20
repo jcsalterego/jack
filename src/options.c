@@ -35,10 +35,13 @@ options_from_args (int argc, char **argv)
 
   int ch;
   optreset = optind = 1; // reset getopt
-  while ((ch = getopt(argc, argv, "dV")) != -1) {
+  while ((ch = getopt(argc, argv, "djV")) != -1) {
     switch (ch) {
     case 'd':
       self->debug = 1;
+      break;
+    case 'j':
+      self->json = 1;
       break;
     case 'V':
       self->version = 1;

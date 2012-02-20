@@ -62,15 +62,9 @@ void
 engine_printv_last_match (engine *self)
 {
   if (self && self->last_match && self->last_match_end) {
-    printv(self->last_match, self->last_match_end);
-  }
-}
-
-void
-engine_printvr_last_match (engine *self)
-{
-  if (self && self->last_match && self->last_match_end) {
-    printvr(self->last_match, self->last_match_end);
+    self->json
+      ? printvr(self->last_match, self->last_match_end)
+      : printv(self->last_match, self->last_match_end);
   }
 }
 

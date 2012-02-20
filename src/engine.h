@@ -15,6 +15,7 @@
 
 typedef struct engine {
   char *filename;
+  int json;
   struct search *search;
   char *last_match;
   char *last_match_end;
