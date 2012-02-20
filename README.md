@@ -25,6 +25,17 @@ Output raw JSON (quoted strings):
     "Sat Jan 07 03:20:00 +0000 2012"
     "Sat Jan 07 03:22:00 +0000 2012"
 
+## Tests
+
+Unit tests are available using the
+[googletest](http://code.google.com/p/googletest/) C++ test framework,
+while incorporating the codebase with the `extern "C"` construct.  See
+`tests/` for more details.
+
+## Compiling
+
+    $ cd src && make
+
 ## Thanks
 
 * [ack](http://betterthangrep.com/) - for three-quarters of the name
