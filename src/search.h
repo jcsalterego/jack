@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {
+typedef struct search {
   char *expr;
   char *key;
   char *value;

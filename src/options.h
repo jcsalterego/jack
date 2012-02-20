@@ -9,7 +9,7 @@
 
 #define MAX_HAYSTACKS 10
 
-typedef struct {
+typedef struct options {
   int version;
   int error;
   int debug;

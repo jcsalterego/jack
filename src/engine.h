@@ -13,9 +13,9 @@
 
 #define ENGINE_ABORT 2
 
-typedef struct {
+typedef struct engine {
   char *filename;
-  search *search;
+  struct search *search;
 } engine;
 
 engine *engine_new (void);

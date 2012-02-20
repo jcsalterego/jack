@@ -2,7 +2,9 @@
  * Options Unit Tests
  */
 
+extern "C" {
 #include "options.h"
+}
 #include "gtest/gtest.h"
 
 class OptionsTestSuite : public testing::Test
