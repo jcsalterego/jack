@@ -16,12 +16,24 @@
 typedef struct engine {
   char *filename;
   struct search *search;
+  char *last_match;
+  char *last_match_end;
 } engine;
 
 engine *engine_new (void);
 engine *engine_new2 (search *s, char *filename);
-int engine_process_file(engine *self, char *f_ptr, off_t f_len);
+void engine_extract_value (engine *self, char *pneedle, char *ple);
+void engine_extract_value_null (engine *self, char *p, char *ple);
+void engine_extract_value_num (engine *self, char *p, char *ple);
+void engine_extract_value_str (engine *self, char *p, char *ple);
+void engine_printv_last_match (engine *self);
+void engine_printvr_last_match (engine *self);
+int engine_process_file (engine *self, char *f_ptr, off_t f_len);
+int engine_process_line (engine *self, char *pl, char *ple);
 int engine_run (engine *self);
 void engine_destroy (engine *self);
+
+void printv (char *p, char *pe);
+void printvr (char *p, char *pe);
 
 #endif

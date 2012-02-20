@@ -59,6 +59,22 @@ printvr (char *p, char *pe)
 }
 
 void
+engine_printv_last_match (engine *self)
+{
+  if (self && self->last_match && self->last_match_end) {
+    printv(self->last_match, self->last_match_end);
+  }
+}
+
+void
+engine_printvr_last_match (engine *self)
+{
+  if (self && self->last_match && self->last_match_end) {
+    printvr(self->last_match, self->last_match_end);
+  }
+}
+
+void
 engine_extract_value_str (engine *self, char *p, char *ple)
 {
   // find ending
@@ -77,7 +93,9 @@ engine_extract_value_str (engine *self, char *p, char *ple)
       break;
     }
   }
-  printv(p, y);
+  self->last_match = p;
+  self->last_match_end = y;
+  engine_printv_last_match(self);
 }
 
 void
@@ -85,7 +103,9 @@ engine_extract_value_null (engine *self, char *p, char *ple)
 {
   // find ending
   if (p + 4 < ple && p[1] == 'u' && p[2] == 'l' && p[3] == 'l') {
-    printv(p, p + 4);
+    self->last_match = p;
+    self->last_match_end = p + 4;
+    engine_printv_last_match(self);
   }
 }
 
@@ -105,7 +125,9 @@ engine_extract_value_num (engine *self, char *p, char *ple)
       break;
     }
   }
-  printv(p, y);
+  self->last_match = p;
+  self->last_match_end = y;
+  engine_printv_last_match(self);
 }
 
 void

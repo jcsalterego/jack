@@ -28,3 +28,19 @@ TEST_F(EngineTestSuite, engine_new2) {
   ASSERT_EQ(0, strcmp(filename, e->filename));
   ASSERT_EQ(s, e->search);
 }
+
+TEST_F(EngineTestSuite, engine_process_line_simple) {
+  char haystack[] = "{\"foo\":\"bar\"}";
+  char *p = haystack;
+  char *pe = &haystack[strlen(haystack)];
+  ASSERT_EQ(*p, '{');
+  ASSERT_EQ(*(pe-1), '}');
+
+  search *s = search_new_from_expr((char *)"foo:");
+  engine *e = engine_new2(s, (char *)"");
+  int rv = engine_process_line(e, p, pe);
+
+  ASSERT_EQ(0, strncmp("\"bar\"", e->last_match,
+                       e->last_match_end - e->last_match));
+  ASSERT_EQ(1, rv);
+}
