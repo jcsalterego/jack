@@ -34,7 +34,7 @@ options_from_args (int argc, char **argv)
   options *self = options_new();
 
   int ch;
-  optreset = optind = 1; // reset getopt
+  optind = 1; // reset getopt
   while ((ch = getopt(argc, argv, "?djV")) != -1) {
     switch (ch) {
     case 'd':

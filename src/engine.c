@@ -172,14 +172,67 @@ engine_process_line (engine *self, char *pl, char *ple)
     // not a hash
     return 0;
   } else {
-    char *pneedle = NULL;
-    if ((pneedle = strnstr(pl, needle, (size_t)(ple - pl))) != NULL) {
-      pneedle += strlen(needle);
-      engine_extract_value(self, pneedle, ple);
-      return 1;
-    } else {
-      return 0;
+    // keep track of all the first level braces
+    // this WILL break with any braces in escaped strings.
+    char *braces[NUM_BRACE_ITEMS];
+    char *stack[STACK_DEPTH];
+    int stack_pos = 0;
+    int brace_pos = 0;
+    bzero(stack, sizeof(char *) * STACK_DEPTH);
+    char *cursor = NULL;
+    for (cursor = pl; cursor < ple; ++cursor) {
+      if (*cursor == '{') {
+        // push
+        if (stack_pos == 1) {
+          // we've entered the 1st-level
+          braces[brace_pos++] = cursor;
+        }
+        stack[stack_pos++] = cursor;
+      } else if (*cursor == '}') {
+        // pop
+        stack[stack_pos--] = NULL;
+        if (stack_pos == 1) {
+          // we're back to the top-level
+          // record closing brace
+          braces[brace_pos++] = cursor;
+        }
+      }
     }
+    // braces now has pairs of pointers of 1st level braces
+    // e.g. "{{}{}}" => { 1, 2, 3, 4 }
+
+    char *pneedle = NULL;
+    int invalid = 0;
+    while (pl < ple) {
+      invalid = 0; // reset invalid flag
+      pneedle = strnstr(pl, needle, (size_t)(ple - pl));
+      if (!pneedle) {
+        // nothing found at all means GTFO
+        return 0;
+      } else if (brace_pos > 0) {
+        // if there are braces, compare pairs against found cursor
+        int i;
+        // can optimize starting brace_pos here.
+        for (i = 0; i < brace_pos; i += 2) {
+          if (braces[i] < pneedle && braces[i+1] > pneedle) {
+            // you're within a level!
+            // advance the starting pointer and retry
+            pl = pneedle + 1;
+            invalid = 1;
+            break;
+          }
+        }
+      }
+
+      if (!invalid) {
+        // if valid, go ahead and extract
+        pneedle += strlen(needle);
+        engine_extract_value(self, pneedle, ple);
+        return 1;
+      }
+    }
+
+    return 0;
   }
 }
 

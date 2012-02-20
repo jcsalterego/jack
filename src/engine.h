@@ -12,6 +12,9 @@
 #include "search.h"
 
 #define ENGINE_ABORT 2
+#define NUM_BRACE_ITEMS 2*NUM_BRACE_PAIRS
+#define NUM_BRACE_PAIRS 10
+#define STACK_DEPTH 16
 
 typedef struct engine {
   char *filename;
