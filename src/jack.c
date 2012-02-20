@@ -14,6 +14,15 @@ usage (void)
   );
 }
 
+void
+mini_usage (void)
+{
+  printf(
+    "Usage: jack [OPTION]... PATTERN [FILE] ...\n"
+    "Try `jack -h' for more information.\n"
+  );
+}
+
 int
 main (int argc, char **argv)
 {
@@ -38,7 +47,12 @@ main (int argc, char **argv)
   }
   options_destroy(opts);
   if (rv != 1) {
-    fprintf(stderr, "non-success code: %d\n", rv);
+    if (!opts->needle) {
+      mini_usage();
+    } else {
+      // some other non-success code
+      fprintf(stderr, "*** warning: non-success code %d\n", rv);
+    }
     return EXIT_FAILURE;
   } else {
     return EXIT_SUCCESS;

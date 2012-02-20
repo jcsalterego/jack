@@ -10,4 +10,8 @@
 #include "options.h"
 #include "search.h"
 
+void usage (void);
+void mini_usage (void);
+int main (int argc, char **argv);
+
 #endif
