@@ -34,7 +34,7 @@ printv (char *p, char *pe)
     ++p;
     --pe;
   }
-  size_t slen = pe - p;
+  size_t slen = (size_t)(pe - p);
   if (slen > 1024) {
     slen = 1024;
   }
@@ -49,7 +49,7 @@ printvr (char *p, char *pe)
 {
   char text[1024];
   bzero(text, sizeof(char)*1024);
-  size_t slen = pe - p;
+  size_t slen = (size_t)(pe - p);
   if (slen > 1024) {
     slen = 1024;
   }
@@ -151,7 +151,7 @@ engine_process_line (engine *self, char *pl, char *ple)
   if (self->debug) {
     char tmp[64];
     // silly debug info
-    size_t slen = ple - pl;
+    size_t slen = (size_t)(ple - pl);
     if (slen > 50) {
       slen = 50;
     }
@@ -205,7 +205,8 @@ engine_process_line (engine *self, char *pl, char *ple)
     int invalid = 0;
     while (pl < ple) {
       invalid = 0; // reset invalid flag
-      pneedle = strnstr(pl, needle, (size_t)(ple - pl));
+      // TODO: replace this with something less buffer-overflowy
+      pneedle = strstr(pl, needle);
       if (!pneedle) {
         // nothing found at all means GTFO
         return 0;

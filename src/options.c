@@ -48,7 +48,7 @@ options_from_args (int argc, char **argv)
       break;
     case '?': // fall-through
     default:
-      if (optopt == '?') {
+      if (optopt == '?' || optopt == '\0') {
         self->help = 1;
       } else {
         self->error = 1;
